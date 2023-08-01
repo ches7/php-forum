@@ -1,8 +1,9 @@
 <?php
 
-use App\Http\Controllers\PostController;
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PostController;
+use App\Http\Controllers\ReplyController;
+use App\Http\Controllers\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,8 +25,23 @@ Route::get('/posts/create', [PostController::class, 'create'])->middleware('auth
 // Store Post Data
 Route::post('/posts', [PostController::class, 'store'])->middleware('auth');
 
-// Show Edit Form
+// Show Edit Post Form
 Route::get('/posts/{post}/edit', [PostController::class, 'edit'])->middleware('auth');
+
+// Replies For Post
+Route::get('/posts/{post}/replies', [ReplyController::class, 'index']);
+
+// Store Reply Data
+Route::post('/posts/{post}/replies', [ReplyController::class, 'store'])->middleware('auth');
+
+// Show Edit Reply Form
+Route::get('/posts/{post}/{reply}/edit', [ReplyController::class, 'edit'])->middleware('auth');
+
+// Update Reply
+Route::put('/posts/{post}/{reply}', [ReplyController::class, 'update'])->middleware('auth');
+
+// Delete Reply
+Route::delete('/posts/{post}/{reply}', [ReplyController::class, 'destroy'])->middleware('auth');
 
 // Update Post
 Route::put('/posts/{post}', [PostController::class, 'update'])->middleware('auth');

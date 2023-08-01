@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Models\Post;
+use App\Models\Reply;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -47,5 +48,10 @@ class User extends Authenticatable
      // Relationship With Posts
      public function posts() {
         return $this->hasMany(Post::class, 'user_id');
+    }
+
+    // Relationship With Replies
+    public function replies() {
+        return $this->hasMany(Reply::class, 'user_id');
     }
 }

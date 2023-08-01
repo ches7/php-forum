@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\Reply;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -16,8 +17,11 @@ class PostController extends Controller
 
     // Show single post
     public function show(Post $post) {
+        $replies = Reply::query()->where('post_id', $post->id)->get();
+        // echo("<script>console.log('PHP: " . $post . "');</script>");
         return view('posts.show', [
-            'post' => $post
+            'post' => $post,
+            'replies' => $replies
         ]);
     }
 
