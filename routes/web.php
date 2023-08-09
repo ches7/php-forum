@@ -18,7 +18,7 @@ use App\Http\Controllers\ProfileController;
 */
 
 // All Posts
-Route::get('/', [PostController::class, 'index']);
+Route::get('/', [PostController::class, 'index'])->name('home');
 
 // Show Create Form
 Route::get('/posts/create', [PostController::class, 'create'])->middleware('auth');
