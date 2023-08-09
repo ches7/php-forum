@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\ReplyController;
 use App\Http\Controllers\ProfileController;
 
@@ -54,6 +55,9 @@ Route::get('/posts/{post}', [PostController::class, 'show']);
 
 // All Posts
 Route::get('/posts', [PostController::class, 'index']);
+
+// Single User Post
+Route::get('/users/{user}', [UserController::class, 'show']);
 
 Route::get('/dashboard', 
 

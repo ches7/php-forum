@@ -31,9 +31,9 @@
                          {{$post->body}}
                       </div>
 
-                      <div class="text-lg mt-4">
+                      <a href="/users/{{$post->user_id}}">
                         {{$post->user->name}}
-                     </div>
+                      </a>
                     </div>
                 </div>
 
