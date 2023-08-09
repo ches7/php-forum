@@ -49,6 +49,11 @@
         <div class="text-lg mt-4">
            {{$reply->reply_body}}
         </div>
+        <form method="POST" action="/posts/{{$post->id}}/{{$reply->id}}">
+          @csrf
+          @method('DELETE')
+          <button class="text-red-500"><i class="fa-solid fa-trash"></i> Delete</button>
+        </form>
       </div>
   </div>
 

@@ -64,16 +64,17 @@ class ReplyController extends Controller
     //     return back()->with('message', 'Post updated successfully!');
     // }
 
-    // // Delete Post
-    // public function destroy(Post $post) {
-    //     // Make sure logged in user is owner
-    //     if($post->user_id != auth()->id()) {
-    //         abort(403, 'Unauthorized Action');
-    //     }
+    // Delete Reply
+    public function destroy(Post $post, Reply $reply) {
+        // Make sure logged in user is owner
+        if($reply->user_id != auth()->id()) {
+            abort(403, 'Unauthorized Action');
+        }
+        // echo("<script>console.log('PHP: " . $reply . "');</script>");
         
-    //     $post->delete();
-    //     return redirect('/')->with('message', 'Post deleted successfully');
-    // }
+        $reply->delete();
+        return redirect('/')->with('message', 'Reply deleted successfully');
+    }
 
     // // Dahsboard
     // public function dashboard(){
