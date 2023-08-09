@@ -49,6 +49,9 @@
         <div class="text-lg mt-4">
            {{$reply->reply_body}}
         </div>
+        <a href="/posts/{{$post->id}}/{{$reply->id}}/edit">
+          <i class="fa-solid fa-pencil"></i> Edit
+        </a>
         <form method="POST" action="/posts/{{$post->id}}/{{$reply->id}}">
           @csrf
           @method('DELETE')

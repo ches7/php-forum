@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use App\Models\Reply;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class PostController extends Controller
 {
@@ -19,6 +20,8 @@ class PostController extends Controller
     public function show(Post $post) {
         $replies = Reply::query()->where('post_id', $post->id)->get();
         // echo("<script>console.log('PHP: " . $post . "');</script>");
+        Session::put('post_url', request()->fullUrl());
+        // echo Session::get('post_url');
         return view('posts.show', [
             'post' => $post,
             'replies' => $replies
@@ -65,7 +68,10 @@ class PostController extends Controller
 
         $post->update($formFields);
 
-        return back()->with('message', 'Post updated successfully!');
+        if(session('post_url')){
+            return redirect(session('post_url'));
+        }
+        return redirect('/');
     }
 
     // Delete Post

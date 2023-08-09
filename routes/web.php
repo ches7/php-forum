@@ -52,6 +52,9 @@ Route::delete('/posts/{post}', [PostController::class, 'destroy'])->middleware('
 // Single Post
 Route::get('/posts/{post}', [PostController::class, 'show']);
 
+// All Posts
+Route::get('/posts', [PostController::class, 'index']);
+
 Route::get('/dashboard', 
 
 [PostController::class, 'dashboard']
