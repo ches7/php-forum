@@ -30,6 +30,10 @@
                       <div class="text-lg mt-4">
                          {{$post->body}}
                       </div>
+
+                      <div class="text-lg mt-4">
+                        {{$post->user->name}}
+                     </div>
                     </div>
                 </div>
 

@@ -9,6 +9,10 @@
       <div class="text-lg mt-4">
          {{$post->body}}
       </div>
+
+      <div class="text-lg mt-4">
+        {{$post->user->name}}
+     </div>
     </div>
 </div>
 
@@ -49,6 +53,9 @@
         <div class="text-lg mt-4">
            {{$reply->reply_body}}
         </div>
+        <div class="text-lg mt-4">
+          {{$reply->user->name}}
+       </div>
         <a href="/posts/{{$post->id}}/{{$reply->id}}/edit">
           <i class="fa-solid fa-pencil"></i> Edit
         </a>

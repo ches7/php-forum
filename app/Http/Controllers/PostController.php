@@ -3,24 +3,32 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\User;
 use App\Models\Reply;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
 class PostController extends Controller
 {
     // Show all posts
     public function index() {
+        // $posts = Post::with('user')->get();        
+        // $posts = Post::latest()->with('user')->get();        
+        // echo("<script>console.log('PHP: " . $posts . "');</script>");
+        
         return view('posts.index', [
-            'posts' => Post::latest()->paginate(6)
+            'posts' => Post::latest()->with('user')->paginate(6)
         ]);
     }
 
     // Show single post
     public function show(Post $post) {
-        $replies = Reply::query()->where('post_id', $post->id)->get();
+        $replies = Reply::query()->where('post_id', $post->id)->with('user')->get();
         // echo("<script>console.log('PHP: " . $post . "');</script>");
         Session::put('post_url', request()->fullUrl());
+        // $post = Post::with('user')->get();
+        Post::with('user')->get();
         // echo Session::get('post_url');
         return view('posts.show', [
             'post' => $post,
