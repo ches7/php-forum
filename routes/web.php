@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ReplyController;
+use App\Http\Controllers\MessageController;
 use App\Http\Controllers\ProfileController;
 
 /*
@@ -58,6 +59,12 @@ Route::get('/posts', [PostController::class, 'index']);
 
 // Single User Post
 Route::get('/users/{user}', [UserController::class, 'show']);
+
+// Single Message
+Route::get('/messages/{user}', [MessageController::class, 'show']);
+
+// Send Message
+Route::post('/messages/{user}', [MessageController::class, 'store']);
 
 Route::get('/dashboard', 
 

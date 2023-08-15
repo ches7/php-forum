@@ -13,6 +13,7 @@
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+        {{-- @import "node_modules/font-awesome/scss/font-awesome.scss"; --}}
     </head>
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-100">

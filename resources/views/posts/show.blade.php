@@ -4,61 +4,67 @@
         <div class="flex flex-col w-1/2">
 
             <div class="border rounded-md mt-4">
-                <ul role="list" class="divide-y divide-gray-100">
-                    <li class="flex justify-between gap-x-6 py-5">
+
+                    <div class="flex justify-between gap-x-6 py-5">
                         <div class="flex min-w-0 gap-x-4 ml-2">
-                            <div class="min-w-0 flex-auto">
-                                <a href="/posts/{{ $post->id }}">
-                                    <p class="text-sm font-semibold leading-6 text-gray-900">{{ $post->title }}</p>
-                                </a>
-                            </div>
+                            <a href="/users/{{ $post->user_id }}">
+                                <p class="mt-1 font-semibold">{{ $post->user->name }}</p>
+                            </a>         
+                               
                         </div>
                         <div class="hidden shrink-0 sm:flex sm:items-end mr-2">
-                            <a href="/users/{{ $post->user_id }}">
-                                <p class="mt-1 truncate text-xs leading-5 text-gray-500">{{ $post->user->name }}</p>
+                            
+                            <a href="/posts/{{ $post->id }}/edit">
+                                <x-heroicon-o-pencil-square class="w-6 h-6"/>
                             </a>
+                
+
+                            <form method="POST" action="/posts/{{ $post->id }}">
+                                @csrf
+                                @method('DELETE')
+                                <button><x-heroicon-o-trash class="w-6 h-6 text-red-500"/></button>
+                            </form>
+
                         </div>
-                    </li>
-                    <div class="text-xl font-bold mb-4">{{ $post->tags }}</div>
+                    </div>
+
+                    <div class="bg-gray-200">
+                            <p class="text-sm font-semibold leading-6 text-gray-900">{{ $post->title }}</p>    
+                    </div>
 
                     <div class="text-lg mt-4">
                         {{ $post->body }}
                     </div>
-                </ul>
+
+                    <div class="text-xs font-bold mb-4">{{ $post->tags }}</div>
             </div>
 
 
-            <a href="/posts/{{ $post->id }}/edit">
-                <i class="fa-solid fa-pencil"></i> Edit
-            </a>
-
-            <form method="POST" action="/posts/{{ $post->id }}">
-                @csrf
-                @method('DELETE')
-                <button class="text-red-500"><i class="fa-solid fa-trash"></i> Delete</button>
-            </form>
-
-            <div class="lg:grid lg:grid-cols-2 gap-4 space-y-4 md:space-y-0 mx-4">
+            <div class="flex flex-col">
 
                 @unless (count($replies) == 0)
 
                     @foreach ($replies as $reply)
-                        <div class="flex">
-                            <div>
-                                <div class="text-lg mt-4">
-                                    {{ $reply->reply_body }}
-                                </div>
+                        <div class="flex flex-col">
+                            <div class="flex justify-between gap-x-6 py-5">
                                 <a href="/users/{{ $reply->user_id }}">
                                     {{ $reply->user->name }}
                                 </a>
+                                
+                        <div class="hidden shrink-0 sm:flex sm:items-end mr-2">
                                 <a href="/posts/{{ $post->id }}/{{ $reply->id }}/edit">
-                                    <i class="fa-solid fa-pencil"></i> Edit
+                                    <x-heroicon-o-pencil-square class="w-6 h-6"/>
                                 </a>
                                 <form method="POST" action="/posts/{{ $post->id }}/{{ $reply->id }}">
                                     @csrf
                                     @method('DELETE')
-                                    <button class="text-red-500"><i class="fa-solid fa-trash"></i> Delete</button>
+                                    <button><x-heroicon-o-trash class="w-6 h-6 text-red-500"/></button>
                                 </form>
+                        </div>
+                            </div>
+
+                            <div class="text-lg mt-4">
+                                {{ $reply->reply_body }}
                             </div>
                         </div>
                     @endforeach
