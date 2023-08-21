@@ -6,79 +6,99 @@
             <div class="border rounded-md mt-4">
 
                     <div class="flex justify-between gap-x-6 py-5">
-                        <div class="flex min-w-0 gap-x-4 ml-2">
+                        <div class="flex min-w-0 gap-x-4 ml-3">
                             <a href="/users/{{ $post->user_id }}">
-                                <p class="mt-1 font-semibold">{{ $post->user->name }}</p>
+                                <p class="font-semibold">{{ $post->user->name }}</p>
                             </a>         
                                
                         </div>
+
+                        @if ($post->user_id === auth()->id())
+
                         <div class="hidden shrink-0 sm:flex sm:items-end mr-2">
                             
                             <a href="/posts/{{ $post->id }}/edit">
-                                <x-heroicon-o-pencil-square class="w-6 h-6"/>
+                                <x-heroicon-o-pencil-square class="w-6 h-6 mb-1.5 mr-1"/>
                             </a>
                 
 
                             <form method="POST" action="/posts/{{ $post->id }}">
                                 @csrf
                                 @method('DELETE')
-                                <button><x-heroicon-o-trash class="w-6 h-6 text-red-500"/></button>
+                                <button><x-heroicon-o-trash class="w-6 h-6 mr-1 text-red-500"/></button>
                             </form>
 
                         </div>
+
+                        @endif
+
                     </div>
 
-                    <div class="bg-gray-200">
-                            <p class="text-sm font-semibold leading-6 text-gray-900">{{ $post->title }}</p>    
+                    <div class="bg-gray-200 ml-3 mr-3 rounded">
+                            <p class="text-lg font-semibold leading-6 ml-1 mr-1">{{ $post->title }}</p>    
                     </div>
 
-                    <div class="text-lg mt-4">
+                    <div class="mt-2 ml-3 mr-3">
                         {{ $post->body }}
                     </div>
 
-                    <div class="text-xs font-bold mb-4">{{ $post->tags }}</div>
+                    <div class="flex mb-4 mt-2 ml-3 mr-3">
+                    <p class="text-xs font-bold pl-1 pr-1 bg-blue-300 rounded">
+                        {{ $post->tags }}
+                    </p>
+                    </div>
             </div>
 
-
-            <div class="flex flex-col">
 
                 @unless (count($replies) == 0)
 
                     @foreach ($replies as $reply)
-                        <div class="flex flex-col">
-                            <div class="flex justify-between gap-x-6 py-5">
-                                <a href="/users/{{ $reply->user_id }}">
-                                    {{ $reply->user->name }}
-                                </a>
-                                
-                        <div class="hidden shrink-0 sm:flex sm:items-end mr-2">
-                                <a href="/posts/{{ $post->id }}/{{ $reply->id }}/edit">
-                                    <x-heroicon-o-pencil-square class="w-6 h-6"/>
-                                </a>
-                                <form method="POST" action="/posts/{{ $post->id }}/{{ $reply->id }}">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button><x-heroicon-o-trash class="w-6 h-6 text-red-500"/></button>
-                                </form>
-                        </div>
-                            </div>
+            <div class="border rounded-md mt-4">
 
-                            <div class="text-lg mt-4">
-                                {{ $reply->reply_body }}
-                            </div>
-                        </div>
-                    @endforeach
+                <div class="flex justify-between gap-x-6 py-5">
+                    <div class="flex min-w-0 gap-x-4 ml-3">
+                        <a href="/users/{{ $reply->user_id }}">
+                            <p class="font-semibold">{{ $reply->user->name }}</p>
+                        </a>         
+                           
+                    </div>
+
+                    @if ($reply->user_id === auth()->id())
+
+                    <div class="hidden shrink-0 sm:flex sm:items-end mr-2">
+                            
+                        <a href="/posts/{{ $post->id }}/{{ $reply->id }}/edit">
+                            <x-heroicon-o-pencil-square class="w-6 h-6 mb-1.5 mr-1"/>
+                        </a>
+            
+
+                        <form method="POST" action="/posts/{{ $post->id }}/{{ $reply->id }}">
+                            @csrf
+                            @method('DELETE')
+                            <button><x-heroicon-o-trash class="w-6 h-6 mr-1 text-red-500"/></button>
+                        </form>
+
+                    </div>
+
+                    @endif
+
+                </div>
+
+                <div class="ml-3 mr-3 mb-4">
+                    {{ $reply->reply_body }}
+                </div>
+        </div>
+        @endforeach
                 @else
                     <p>No replies found</p>
                 @endunless
+                    
 
-            </div>
 
             <div>
                 <form method="POST" action="/posts/{{ $post->id }}/replies" enctype="multipart/form-data">
                     @csrf
                     <div class="col-span-full">
-                        <label for="about" class="block text-sm font-medium leading-6 text-gray-900">Reply</label>
                         <div class="mt-2">
                             <textarea id="reply_body" name="reply_body" rows="3"
                                 class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"></textarea>
