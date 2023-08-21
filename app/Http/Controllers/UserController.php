@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 class UserController extends Controller
 {
     public function show(User $user){
-        $posts = Post::query()->where('user_id', $user->id)->get();
+        $posts = Post::query()->where('user_id', $user->id)->paginate(6);
         $replies = Reply::query()->where('user_id', $user->id)->get();
         echo("<script>console.log('PHP: " . $user . "');</script>");
         return view('users.show', [
