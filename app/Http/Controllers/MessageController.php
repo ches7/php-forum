@@ -22,13 +22,18 @@ class MessageController extends Controller
             ['recipient_id', $user]
         ])->get();
 
-        // echo("<script>console.log('PHP: " . $messages . "');</script>");
+        $fullUser = DB::table('users')->where([
+            ['id', $user],
+        ])->get();
+
+        echo("<script>console.log('PHP: " . $fullUser . "');</script>");
 
         Session::put('messages_url', request()->fullUrl());
 
         return view('messages.show', [
                     'messages' => $messages,
-                    'user' => $user
+                    'user_id' => $fullUser[0]->id,
+                    'user_name' => $fullUser[0]->name,
                 ]);
     }
 
