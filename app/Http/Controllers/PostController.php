@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use App\Models\User;
 use App\Models\Reply;
+use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
@@ -95,6 +97,34 @@ class PostController extends Controller
 
     // Dahsboard
     public function dashboard(){
-        return view('dashboard', ['posts' => request()->user()->posts()->get()]);
+        
+        $messagesSent = DB::table('messages')->where([
+            ['sender_id', auth()->id()]
+        ])->get();
+        $messagesRecieved = DB::table('messages')->where([
+            ['recipient_id', auth()->id()]
+        ])->get();
+
+        $userIds = array();
+
+        foreach ($messagesSent as $message){
+           $userIds[] = $message->recipient_id;
+        };
+        foreach ($messagesRecieved as $message){
+            $userIds[] = $message->sender_id;
+        };
+
+        $userIds = array_unique($userIds);
+
+        $users = DB::table('users')->select('id', 'name')->where([
+            ['id', $userIds],
+        ])->get();
+        
+        // echo dd($users);
+
+        return view('dashboard', 
+        ['posts' => request()->user()->posts()->get()],
+        ['users' => $users]
+        );
     }
 }
