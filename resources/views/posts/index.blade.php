@@ -38,6 +38,10 @@
                 {{ $posts->links() }}
             </div>
 
+            <a href="/posts/create" class="flex mt-4 justify-center">
+                <p class="bg-blue-500 p-2 rounded">Create post</p>
+                </a>
+
         </div>
 
     </div>

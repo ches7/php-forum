@@ -1,28 +1,18 @@
-<!--
-  This example requires some changes to your config:
-  
-  ```
-  // tailwind.config.js
-  module.exports = {
-    // ...
-    plugins: [
-      // ...
-      require('@tailwindcss/forms'),
-    ],
-  }
-  ```
--->
-
 <x-app-layout>
+
+    <div class="flex justify-center">
+    
+        <div class="flex flex-col w-1/2">
+
     <form method="POST" action="/posts" enctype="multipart/form-data">
         @csrf
         <div class="space-y-12">
-            <div class="border-b border-gray-900/10 pb-12">
-                <h2 class="text-base font-semibold leading-7 text-gray-900">Create Post</h2>
+            <div class="">
+                <h2 class="text-base font-semibold leading-7 mt-4 ml-2">Create Post</h2>
 
                 <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                     <div class="sm:col-span-3">
-                        <label for="title" class="block text-sm font-medium leading-6 text-gray-900">Title</label>
+                        <label for="title" class="block text-sm font-medium leading-6 ml-2">Title</label>
                         <div class="mt-2">
                             <input type="text" name="title" id="title" autocomplete="title"
                                 class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
@@ -33,7 +23,7 @@
                     </div>
 
                     <div class="sm:col-span-3">
-                        <label for="tags" class="block text-sm font-medium leading-6 text-gray-900">Tags</label>
+                        <label for="tags" class="block text-sm font-medium leading-6 ml-2">Tags</label>
                         <div class="mt-2">
                             <input type="text" name="tags" id="tags" autocomplete="tags"
                                 class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
@@ -44,7 +34,7 @@
                     </div>
 
                     <div class="col-span-full">
-                        <label for="about" class="block text-sm font-medium leading-6 text-gray-900">Body</label>
+                        <label for="about" class="block text-sm font-medium leading-6 ml-2">Body</label>
                         <div class="mt-2">
                             <textarea id="body" name="body" rows="3"
                                 class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"></textarea>
@@ -65,4 +55,7 @@
             </div>
         </div>
     </form>
+
+        </div>
+    </div>
 </x-app-layout>
