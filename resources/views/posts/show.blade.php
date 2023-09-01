@@ -43,9 +43,15 @@
                     </div>
 
                     <div class="flex mb-4 mt-2 ml-3 mr-3">
-                    <p class="text-xs font-bold pl-1 pr-1 bg-blue-300 rounded">
-                        {{ $post->tags }}
+                        @php
+                         $tags = explode(',', $post->tags);   
+                        @endphp
+
+                        @foreach($tags as $tag)
+                    <p class="text-xs font-bold pl-1 pr-1 bg-blue-300 rounded mr-1">
+                     <a href="/?tag={{$tag}}">  {{ $tag }} </a>
                     </p>
+                    @endforeach
                     </div>
             </div>
 

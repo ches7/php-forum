@@ -20,7 +20,7 @@ class PostController extends Controller
         // echo("<script>console.log('PHP: " . $posts . "');</script>");
         
         return view('posts.index', [
-            'posts' => Post::latest()->with('user')->paginate(6)
+            'posts' => Post::latest()->filter(request(['tag', 'search']))->with('user')->paginate(6)
         ]);
     }
 
