@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Message;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 
@@ -14,6 +15,30 @@ class MessageController extends Controller
     // Show messages between two users
     public function show($user) {
 
+        // All users
+        $messagesSent = DB::table('messages')->where([
+            ['sender_id', auth()->id()]
+        ])->get();
+        $messagesRecieved = DB::table('messages')->where([
+            ['recipient_id', auth()->id()]
+        ])->get();
+
+        $userIds = array();
+
+        foreach ($messagesSent as $message){
+           $userIds[] = $message->recipient_id;
+        };
+        foreach ($messagesRecieved as $message){
+            $userIds[] = $message->sender_id;
+        };
+
+        $userIds = array_unique($userIds);
+
+        $users = DB::table('users')->select('id', 'name')->whereIn(
+            'id', $userIds
+        )->get();
+
+        // Messages between two users
         $messages = DB::table('messages')->where([
             ['sender_id', $user],
             ['recipient_id', auth()->id()]
@@ -34,6 +59,7 @@ class MessageController extends Controller
                     'messages' => $messages,
                     'user_id' => $fullUser[0]->id,
                     'user_name' => $fullUser[0]->name,
+                    'users' => $users
                 ]);
     }
 

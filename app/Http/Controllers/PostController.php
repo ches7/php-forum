@@ -116,9 +116,9 @@ class PostController extends Controller
 
         $userIds = array_unique($userIds);
 
-        $users = DB::table('users')->select('id', 'name')->where([
-            ['id', $userIds],
-        ])->get();
+        $users = DB::table('users')->select('id', 'name')->whereIn(
+            'id', $userIds
+        )->get();
         
         // echo dd($users);
 

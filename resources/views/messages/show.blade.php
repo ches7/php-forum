@@ -1,5 +1,25 @@
 <x-app-layout>
 <div class="flex justify-center">
+  <div class="flex">
+  <div id="user_container" class="">
+  
+    <main class="">
+      <header>
+        <div>
+          <h2 class="text-lg mt-4 mb-4 ml-2">Users</h2>
+        </div>
+      </header>
+      <ul id="users" class="ml-2">
+        @foreach($users as $user)
+        <li>
+  <a href="/messages/{{$user->id}}"> <p>{{$user->name}}</p> </a>
+        </li>
+        @endforeach
+      </ul>
+    </main>
+  
+  </div>
+
 <div id="container">
     <main class="">
       <header>
@@ -71,6 +91,7 @@
         </div>
       </footer>
     </main>
+  </div>
   </div>
 </div>
   
