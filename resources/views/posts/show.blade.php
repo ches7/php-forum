@@ -48,7 +48,7 @@
                         @endphp
 
                         @foreach($tags as $tag)
-                    <p class="text-xs font-bold pl-1 pr-1 bg-blue-300 rounded mr-1">
+                    <p class="text-xs pl-1 pr-1 bg-blue-100 rounded mr-1">
                      <a href="/?tag={{$tag}}">  {{ $tag }} </a>
                     </p>
                     @endforeach
@@ -95,8 +95,6 @@
                 </div>
         </div>
         @endforeach
-                @else
-                    <p>No replies found</p>
                 @endunless
                     
 

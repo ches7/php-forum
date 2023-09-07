@@ -47,11 +47,6 @@
           @endforeach
 
       </ul>
-
-      @else
-<div class="flex mt-4 justify-center">
-  No posts
-  </div>
   @endunless
 
 
@@ -81,10 +76,6 @@
       @endforeach
 
   </ul>
-@else
-<div class="flex mt-4 justify-center">
-  No messages
-  </div>
 
 @endunless
 
